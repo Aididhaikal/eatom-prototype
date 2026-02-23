@@ -1,26 +1,170 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-maroon-50: #fdf2f4;
+  --color-maroon-100: #fbe6e9;
+  --color-maroon-200: #f5ccd3;
+  --color-maroon-300: #f0a8b5;
+  --color-maroon-400: #e6738a;
+  --color-maroon-500: #d44c69;
+  --color-maroon-600: #b13e57;
+  --color-maroon-700: #8f3247;
+  --color-maroon-800: #74293b;
+  --color-maroon-900: #602332;
+  
+  --animate-fade-in: fadeIn 0.5s ease-in-out;
+  --animate-slide-up: slideUp 0.3s ease-out;
+  --animate-slide-down: slideDown 0.3s ease-out;
+  --animate-scale: scale 0.2s ease-in-out;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scale {
+  from {
+    transform: scale(0.95);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@utility glass {
+  background-color: color-mix(in oklab, white 80%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in oklab, white 20%, transparent);
+}
+
+@utility glass-dark {
+  background-color: color-mix(in oklab, #111827 80%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in oklab, #374151 20%, transparent);
+}
+
+@utility hover-lift {
+  transition: transform 300ms;
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@utility hover-glow {
+  transition: all 300ms;
+  &:hover {
+    box-shadow: 0 10px 15px -3px color-mix(in oklab, var(--color-maroon-600) 20%, transparent);
+  }
+}
+
+@utility card-gradient {
+  background-image: linear-gradient(to bottom right, white, color-mix(in oklab, #f9fafb 50%, transparent));
+}
+
+@utility spinner {
+  border-radius: 9999px;
+  border: 2px solid #e5e7eb;
+  border-top-color: var(--color-maroon-600);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@utility focus-ring {
+  &:focus {
+    outline: none;
+    ring: 2px solid var(--color-maroon-600);
+    ring-offset: 2px;
+  }
+}
+
+@utility input-maroon {
+  border-color: #e5e7eb;
+  &:focus {
+    border-color: var(--color-maroon-600);
+    ring: 2px solid var(--color-maroon-600);
+  }
+}
+
+@utility btn-maroon {
+  background-image: linear-gradient(to right, var(--color-maroon-600), var(--color-maroon-700));
+  color: white;
+  transition: all 300ms;
+  box-shadow: 0 10px 15px -3px color-mix(in oklab, var(--color-maroon-600) 25%, transparent);
+  &:hover {
+    background-image: linear-gradient(to right, var(--color-maroon-700), var(--color-maroon-800));
+  }
+}
+
+@utility btn-outline-maroon {
+  border: 2px solid var(--color-maroon-600);
+  color: var(--color-maroon-600);
+  transition: all 300ms;
+  &:hover {
+    background-color: var(--color-maroon-50);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f3f4f6;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-maroon-400);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-maroon-600);
+}
+
+/* Base styles */
+* {
+  border-color: #e5e7eb;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f9fafb;
+  color: #111827;
+  font-feature-settings: "rlig" 1, "calt" 1;
 }
